@@ -1,3 +1,4 @@
+import { Entypo, FontAwesome } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { Button, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
@@ -38,16 +39,53 @@ function Toot({toot}){
   return (
     <View style={{flexDirection: 'row', borderBottomColor: '#ddd', borderBottomWidth: StyleSheet.hairlineWidth, marginBottom: 16, paddingBottom: 16}}>
       <Image source={toot.account.avatar} style={{width: 48, height: 48, borderRadius: 24, marginRight: 16}}/>
-      <View style={{maxWidth: 450, maxHeight: expanded ? null : 200, overflow: 'hidden'}}>
+      <View style={{maxWidth: 450, overflow: 'hidden'}}>
         <View style={{flexDirection: 'row'}}>
           <Text style={{fontWeight: 'bold'}}>{toot.account.display_name}</Text>
+          <Text style={{color: '#999'}}>({toot.account.followers_count})</Text>
         </View>
         <RenderHTML source={{html: toot.content}} contentWidth={450} defaultTextProps={{selectable:true}} />
-        {/* <Text>{toot.content}</Text> */}
+        <TootStats toot={toot} />
       </View>
     </View>
   )
-  return <Text>Toot: {toot.content}</Text>
+}
+
+
+const tootStatStyle = StyleSheet.create({
+  state: {
+    flexDirection: 'row', 
+    alignItems: 'center',
+    marginRight: 32
+  },
+  icon: {
+    size: 16,
+    color: '#999',
+    marginRight: 4
+  },
+  count: {
+    color: '#999'
+  }
+  
+})
+
+function TootStats({toot}) {
+  return (
+    <View style={{flexDirection: 'row'}}>
+      <View style={tootStatStyle.state}>
+        <FontAwesome name='reply' style={tootStatStyle.icon}/>       
+        <Text style={tootStatStyle.count}>{toot.replies_count}</Text>
+      </View>
+      <View style={tootStatStyle.state}>
+        <Entypo name='loop' style={tootStatStyle.icon} />
+        <Text style={tootStatStyle.count}>{toot.reblogs_count}</Text>
+      </View>
+      <View style={tootStatStyle.state}>
+        <FontAwesome name='heart' style={tootStatStyle.icon} />
+        <Text style={tootStatStyle.count}>{toot.favourites_count}</Text>
+      </View>
+    </View>
+  )
 }
 
 
