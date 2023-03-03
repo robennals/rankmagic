@@ -22,6 +22,18 @@ function shouldKeepToot(toot) {
         && (toot.replies_count || toot.favourites_count);
 }
 
+function filterDups(toots) {
+    var seen = {};
+    var keep = [];
+    toots.forEach(toot => {
+        if (!seen[toot.id]) {
+            keep.push(toot);
+            seen[toot.id] = true;
+        }
+    })
+    return keep;
+}
+
 function stripHtml(html) {
     var text = html.replace(/<p>/g, '\n');
     text = html.replace(/<br>/g, '\n');
@@ -33,14 +45,14 @@ function createScoredToot(toot) {
     return {
         id: toot.id,
         text: stripHtml(toot.content),
-        html: toot.content,
+        // html: toot.content,
         account: {
             display_name: toot.account.display_name,
             acct: toot.account.acct,
             avatar: toot.account.avatar,
+            followers: toot.account.followers_count,
         },
         bot: toot.account.bot,
-        followers: toot.account.followers_count,
         replies: toot.replies_count,
         reblogs: toot.reblogs_count,
         likes: toot.favourites_count,
@@ -51,10 +63,12 @@ function createScoredToot(toot) {
 function scoreToots() {
     const allToots = getAllToots();
     const filtered = allToots.filter(toot => shouldKeepToot(toot));
-    const scoredToots = filtered.map(toot => createScoredToot(toot));
-    console.log('toots left after filtering', filtered.length);
+    const notDups = filterDups(filtered);
+    const scoredToots = notDups.map(toot => createScoredToot(toot));
+    console.log('toots left after filtering', notDups.length);
     const jsonString = JSON.stringify(scoredToots, null, 2);
-    FS.writeFileSync('cached/scored.json', jsonString);
+    const javascriptContent = 'export const scoredToots = ' + jsonString;
+    FS.writeFileSync('cached/scored.js', javascriptContent);
     console.log('written file');
 }
 
