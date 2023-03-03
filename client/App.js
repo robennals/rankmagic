@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Button, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 // import RenderHTML from 'react-native-render-html';
 import { getTootsAsync } from './data';
-// import { LinkText } from './linktext';
+import { LinkText } from './linktext';
 import { scoredToots } from './scored';
 // import HTMLView from 'react-native-htmlview';
 
@@ -61,7 +61,8 @@ function Toot({toot}){
         </View>
         <View style={{color: '#222', marginVertical: 8, flexShrink: 1, overflow: 'hidden'}}>
           {textLines.map(line => 
-            <Text key={line} style={{marginVertical: 2, lineHeight: 17}}>{line}</Text>
+            <LinkText text={line} style={{marginVertical: 2, lineHeight: 17}} />
+            // <Text key={line} style={{marginVertical: 2, lineHeight: 17}}>{line}</Text>
           )}
         </View>
         {/* <Text style={{color: '#222', marginTop: 8, marginBottom: 8, flexShrink: 1, overflow: 'hidden'}}>

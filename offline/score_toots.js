@@ -2,6 +2,7 @@ const FS = require('fs');
 
 const testFolder = './tests/';
 const fs = require('fs');
+const Entities = require('html-entities');
 
 function getAllToots() {
     const folder = 'cached/toots';
@@ -37,6 +38,7 @@ function filterDups(toots) {
 function stripHtml(html) {
     var text = html.replace(/<p>/g, '\n');
     text = text.replace(/<br>/g, '\n');
+    text = Entities.decode(text);
     text = text.replace(/<\/?[^>]+(>|$)/g, "");
     return text;
 }
