@@ -31,18 +31,22 @@ export default function App() {
 }
 
 function filterToots(toots) {
-  return toots.filter(toot => toot.language == 'en' && toot.sensitive == false);
+  return toots.filter(toot => toot.language == 'en' && toot.sensitive == false && !toot.in_reply_to_id);
 }
 
 function Toot({toot}){
   const [expanded, setExpanded] = useState(false);
+  const date = new Date(toot.created_at);
+  const formattedDate = date.toLocaleDateString(undefined, {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'})
+
   return (
     <View style={{flexDirection: 'row', borderBottomColor: '#ddd', borderBottomWidth: StyleSheet.hairlineWidth, marginBottom: 16, paddingBottom: 16}}>
       <Image source={toot.account.avatar} style={{width: 48, height: 48, borderRadius: 24, marginRight: 16}}/>
       <View style={{maxWidth: 450, overflow: 'hidden'}}>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
           <Text style={{fontWeight: 'bold'}}>{toot.account.display_name}</Text>
-          <Text style={{color: '#999'}}>({toot.account.followers_count})</Text>
+          <Text style={{color: '#999', fontSize: 13}}> - {formattedDate}</Text>
+          {/* <Text style={{color: '#999'}}>({toot.account.followers_count})</Text> */}
         </View>
         <RenderHTML source={{html: toot.content}} contentWidth={450} defaultTextProps={{selectable:true}} />
         <TootStats toot={toot} />
@@ -83,7 +87,12 @@ function TootStats({toot}) {
       <View style={tootStatStyle.state}>
         <FontAwesome name='heart' style={tootStatStyle.icon} />
         <Text style={tootStatStyle.count}>{toot.favourites_count}</Text>
+      </View>      
+      <View style={tootStatStyle.state}>
+        <FontAwesome name='user' style={tootStatStyle.icon} />
+        <Text style={tootStatStyle.count}>{toot.account.followers_count}</Text>
       </View>
+
     </View>
   )
 }

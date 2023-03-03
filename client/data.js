@@ -8,8 +8,13 @@ export async function fetchJson(url) {
     return data;
 }
 
+// const maxId = 109943000000000000;
+const maxId = 109943700000000000;
+
+
+
 export async function getTootsAsync() {
-    const actionUrl = 'https://mastodon.social/api/v1/timelines/public?limit=10';
+    const actionUrl = 'https://mastodon.social/api/v1/timelines/public?limit=20&max_id=' + maxId;
     const response = await fetch(actionUrl, {
         headers: {'Content-Type': 'application/json'}
     });
