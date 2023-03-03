@@ -11,6 +11,7 @@ import { scoredToots } from './scored';
 
 export default function App() {
   const [toots, setToots] = useState();
+  const [expanded, setExpanded] = useState(true);
 
   console.log('scoredToots', scoredToots);
 
@@ -18,14 +19,15 @@ export default function App() {
   //   setToots(filterToots(await getTootsAsync()));
   // }
 
-  const topToots = scoredToots.slice(0, 100);
+  const topToots = scoredToots.slice(0, 20);
 
   return (
     <View style={styles.container}>
+      <StatusBar style="auto" />
+
       <Text>This is the awesome toot ranker</Text>
       {/* <Button onPress={updateToots} title='Get Toots'/> */}
-      <StatusBar style="auto" />
-      <ScrollView style={{flex: 1}}>
+      <ScrollView style={{flex: 1, flexShrink: 1, margin: 4}}>
         {topToots.map(toot => 
           <Toot key={toot.id} toot={toot} />
         )}
@@ -43,18 +45,28 @@ function Toot({toot}){
   const date = new Date(toot.date);
   const formattedDate = date.toLocaleDateString(undefined, {year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric'})
 
+  const textLines = toot.text.split('\n');
+
   return (
     <View style={{flexDirection: 'row', borderBottomColor: '#ddd', borderBottomWidth: StyleSheet.hairlineWidth, marginBottom: 16, paddingBottom: 16}}>
-      <Image source={toot.account.avatar} style={{width: 48, height: 48, borderRadius: 24, marginRight: 16}}/>
-      <View style={{maxWidth: 450, overflow: 'hidden'}}>
-        <View style={{flexDirection: 'row', alignItems: 'baseline'}}>
-          <Text style={{fontWeight: 'bold'}}>{toot.account.display_name}</Text>
-          <Text style={{color: '#999', fontSize: 13}}> - {formattedDate}</Text>
+      {/* <Image source={toot.account.avatar} style={{width: 48, height: 48, borderRadius: 24, marginRight: 16}}/> */}
+      <View style={{maxWidth: 350, overflow: 'hidden', flex: 1, flexShrink: 1}}>
+        <View style={{flexDirection: 'row', flex: 1, overflow: 'hidden'}}>
+          <Image source={toot.account.avatar} style={{width: 32, height: 32, borderRadius: 16, marginRight: 8}}/>
+          <View>
+            <Text style={{fontWeight: 'bold'}}>{toot.account.display_name}</Text>
+            <Text style={{color: '#999', fontSize: 13}}>{formattedDate}</Text>
+          </View>
           {/* <Text style={{color: '#999'}}>({toot.account.followers_count})</Text> */}
         </View>
-        <Text style={{color: '#222', marginTop: 4, marginBottom: 8}}>
+        <View style={{color: '#222', marginVertical: 8, flexShrink: 1, overflow: 'hidden'}}>
+          {textLines.map(line => 
+            <Text key={line} style={{marginVertical: 2, lineHeight: 17}}>{line}</Text>
+          )}
+        </View>
+        {/* <Text style={{color: '#222', marginTop: 8, marginBottom: 8, flexShrink: 1, overflow: 'hidden'}}>
           {toot.text}
-        </Text>
+        </Text> */}
         {/* <LinkText text={toot.text} style={{color: '#222', marginTop: 4, marginBottom: 8}} /> */}
         {/* <RenderHTML source={{html: toot.te``}} contentWidth={450} defaultTextProps={{selectable:true}} /> */}
         <TootStats toot={toot} />
@@ -103,6 +115,11 @@ function TootStats({toot}) {
 
     </View>
   )
+}
+
+
+function RankingSliders({rankingWeights, setRankingWeights}) {
+
 }
 
 

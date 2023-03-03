@@ -36,7 +36,7 @@ function filterDups(toots) {
 
 function stripHtml(html) {
     var text = html.replace(/<p>/g, '\n');
-    text = html.replace(/<br>/g, '\n');
+    text = text.replace(/<br>/g, '\n');
     text = text.replace(/<\/?[^>]+(>|$)/g, "");
     return text;
 }
@@ -45,7 +45,7 @@ function createScoredToot(toot) {
     return {
         id: toot.id,
         text: stripHtml(toot.content),
-        // html: toot.content,
+        html: toot.content,
         account: {
             display_name: toot.account.display_name,
             acct: toot.account.acct,
