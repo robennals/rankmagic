@@ -19,6 +19,8 @@
     "react-native": "0.71.3",
     "react-native-htmlview": "^0.16.0",
     "react-native-render-html": "^6.3.4",
+    "react-native-slider": "^0.11.0",
+    "react-native-slider-web": "^0.1.2",
     "react-native-web": "~0.18.10"
   },
   "devDependencies": {

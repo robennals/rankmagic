@@ -7278,7 +7278,7 @@ prompts@^2.3.2, prompts@^2.4.0:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@*, prop-types@^15.5.7:
+prop-types@*, prop-types@^15.5.6, prop-types@^15.5.7:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -7445,6 +7445,20 @@ react-native-render-html@^6.3.4:
     ramda "^0.27.2"
     stringify-entities "^3.1.0"
     urijs "^1.19.6"
+
+react-native-slider-web@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-slider-web/-/react-native-slider-web-0.1.2.tgz#98cec32d572795dc75dc7fa3edd8fd1c0ab8235b"
+  integrity sha512-Zav5+utDuV4fcsJiT626wd4V0h5n8hzlHQ0eq7N2MrtgiB+Xi6F1E/Zcy8W5Eejs7gh13zntUgzljqMpm4vsYQ==
+  dependencies:
+    prop-types "^15.5.6"
+
+react-native-slider@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/react-native-slider/-/react-native-slider-0.11.0.tgz#b68a0bc43c8422b24cd57947cc5ac2bcdb58fadc"
+  integrity sha512-jV9K87eu9uWr0uJIyrSpBLnCKvVlOySC2wynq9TFCdV9oGgjt7Niq8Q1A8R8v+5GHsuBw/s8vEj1AAkkUi+u+w==
+  dependencies:
+    prop-types "^15.5.6"
 
 react-native-web@~0.18.10:
   version "0.18.12"

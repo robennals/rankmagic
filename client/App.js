@@ -1,23 +1,29 @@
 import { Entypo, FontAwesome } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { Button, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Button, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 // import RenderHTML from 'react-native-render-html';
 import { getTootsAsync } from './data';
 import { LinkText } from './linktext';
 import { scoredToots } from './scored';
+import { Slider } from './shim';
+// import Slider from 'react-native-slider';
+
 // import HTMLView from 'react-native-htmlview';
 
 
+console.log('Slider', Slider);
+
+
 export default function App() {
-  const [toots, setToots] = useState();
   const [expanded, setExpanded] = useState(true);
+  const [like, setLike] = useState(0);
+  const [reblog, setReblog] = useState(0);
+  const [reply, setReply] = useState(0);
+  const [followers, setFollowers] = useState(0);
+
 
   console.log('scoredToots', scoredToots);
-
-  // async function updateToots() {
-  //   setToots(filterToots(await getTootsAsync()));
-  // }
 
   const topToots = scoredToots.slice(0, 20);
 
@@ -25,7 +31,23 @@ export default function App() {
     <View style={styles.container}>
       <StatusBar style="auto" />
 
-      <Text>This is the awesome toot ranker</Text>
+      <View style={styles.border}>
+        <TouchableOpacity onPress={() => setExpanded(!expanded)}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', marginVertical: 4, marginHorizontal: 8}}>
+            <Text style={{fontWeight: 'bold', marginRight: 16}}>Ranking Features</Text>
+            <FontAwesome name={expanded ? 'chevron-up' : 'chevron-down'} />
+          </View>
+        </TouchableOpacity>
+        {expanded ? 
+          <View style={{alignItems: 'flex-end'}}>
+            <RankingSlider title='Like' value={like} onChange={setLike} />
+            <RankingSlider title='Reshare' value={reblog} onChange={setReblog} />
+            <RankingSlider title='Reply' value={reply} onChange={setReply} />
+            <RankingSlider title='Followers' value={followers} onChange={setFollowers} />
+          </View>
+        : null}
+      </View> 
+
       {/* <Button onPress={updateToots} title='Get Toots'/> */}
       <ScrollView style={{flex: 1, flexShrink: 1, margin: 4}}>
         {topToots.map(toot => 
@@ -119,10 +141,18 @@ function TootStats({toot}) {
 }
 
 
-function RankingSliders({rankingWeights, setRankingWeights}) {
-
+function RankingSlider({title, value, onChange}) {
+  return (
+    <View style={{flexDirection: 'row', marginHorizontal: 8}}>
+      <Text style={{textAlign: 'right', fontSize: 14, color: '#222', marginRight: 8}}>{title} ({value})</Text>
+      <Slider
+            value={value}
+            onChange={onChange}
+            style={{}}
+        />
+    </View>
+  )
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -131,4 +161,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  border: {
+    borderColor: '#ddd',
+    borderWidth: StyleSheet.hairlineWidth,
+    borderRadius: 8,
+    margin: 8
+  }
 });
