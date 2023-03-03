@@ -9,8 +9,8 @@ export function Slider({value, onChange}) {
     }
 
     return (
-        <div class="slidecontainer">
-            <input type="range" min="-5" max="5" value={value} onChange={onNativeChange} class="slider" id="myRange" />
+        <div>
+            <input type="range" min="-5" max="5" value={value} onChange={onNativeChange} />
         </div>
     )
 }

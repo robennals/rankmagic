@@ -5,6 +5,7 @@ import { Button, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } f
 // import RenderHTML from 'react-native-render-html';
 import { getTootsAsync } from './data';
 import { LinkText } from './linktext';
+import { rankToots } from './ranking';
 import { scoredToots } from './scored';
 import { Slider } from './shim';
 // import Slider from 'react-native-slider';
@@ -17,15 +18,20 @@ console.log('Slider', Slider);
 
 export default function App() {
   const [expanded, setExpanded] = useState(true);
-  const [like, setLike] = useState(0);
-  const [reblog, setReblog] = useState(0);
-  const [reply, setReply] = useState(0);
+  const [likes, setLikes] = useState(0);
+  const [reblogs, setReblogs] = useState(0);
+  const [replies, setReplies] = useState(0);
   const [followers, setFollowers] = useState(0);
 
 
   console.log('scoredToots', scoredToots);
 
-  const topToots = scoredToots.slice(0, 20);
+  const rankedToots = rankToots({toots: scoredToots, likes, reblogs, replies, followers});
+
+  console.log('rankedToots', rankedToots);
+
+
+  const topToots = rankedToots.slice(0, 20);
 
   return (
     <View style={styles.container}>
@@ -40,9 +46,9 @@ export default function App() {
         </TouchableOpacity>
         {expanded ? 
           <View style={{alignItems: 'flex-end'}}>
-            <RankingSlider title='Like' value={like} onChange={setLike} />
-            <RankingSlider title='Reshare' value={reblog} onChange={setReblog} />
-            <RankingSlider title='Reply' value={reply} onChange={setReply} />
+            <RankingSlider title='Like' value={likes} onChange={setLikes} />
+            <RankingSlider title='Reshare' value={reblogs} onChange={setReblogs} />
+            <RankingSlider title='Reply' value={replies} onChange={setReplies} />
             <RankingSlider title='Followers' value={followers} onChange={setFollowers} />
           </View>
         : null}
@@ -133,7 +139,7 @@ function TootStats({toot}) {
       </View>      
       <View style={tootStatStyle.state}>
         <FontAwesome name='user' style={tootStatStyle.icon} />
-        <Text style={tootStatStyle.count}>{toot.account.followers}</Text>
+        <Text style={tootStatStyle.count}>{toot.followers}</Text>
       </View>
 
     </View>
