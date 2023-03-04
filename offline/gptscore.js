@@ -94,13 +94,15 @@ async function scoreTootsAsync({toots, maxCount, feature}) {
     for(toot of toots) {
         if (countRemaining > 0 && !doneScore[toot.id]) {
             countRemaining = countRemaining - 1;
-            const result = await scoredTootTextAsync({feature: 'positive', text: toot.text});
+            const result = await scoredTootTextAsync({feature, text: toot.text});
             FS.appendFileSync('gptresults/' + feature + '.feature', toot.id + ':' + result + '\n');
         }
     }
 }
 
-scoreTootsAsync({toots: scoredToots, maxCount: 1000, feature: 'positive'});
+// scoreTootsAsync({toots: scoredToots, maxCount: 1000, feature: 'positive'});
+
+scoreTootsAsync({toots: scoredToots, maxCount: 1000, feature: 'political'});
 
 // testTootScoreAsync();
 
