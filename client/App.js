@@ -40,7 +40,7 @@ export default function App() {
       <View style={styles.border}>
         <TouchableOpacity onPress={() => setExpanded(!expanded)}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between', marginVertical: 4, marginHorizontal: 8}}>
-            <Text style={{fontWeight: 'bold', marginRight: 16}}>Ranking Features</Text>
+            <Text style={{fontWeight: 'bold', marginRight: 16}}>Ranking Importance</Text>
             <FontAwesome name={expanded ? 'chevron-up' : 'chevron-down'} />
           </View>
         </TouchableOpacity>
@@ -49,7 +49,7 @@ export default function App() {
             <RankingSlider title='Like' value={likes} onChange={setLikes} />
             <RankingSlider title='Reshare' value={reblogs} onChange={setReblogs} />
             <RankingSlider title='Reply' value={replies} onChange={setReplies} />
-            <RankingSlider title='Followers' value={followers} onChange={setFollowers} />
+            <RankingSlider title='Follow' value={followers} onChange={setFollowers} />
           </View>
         : null}
       </View> 
