@@ -69,7 +69,7 @@ function scoreToots() {
     const scoredToots = notDups.map(toot => createScoredToot(toot));
     console.log('toots left after filtering', notDups.length);
     const jsonString = JSON.stringify(scoredToots, null, 2);
-    const javascriptContent = 'export const scoredToots = ' + jsonString;
+    const javascriptContent = 'exports.scoredToots = ' + jsonString;
     FS.writeFileSync('cached/scored.js', javascriptContent);
     console.log('written file');
 }

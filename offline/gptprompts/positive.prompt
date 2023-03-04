@@ -1,0 +1,11 @@
+I'm going to show you a tweet. I want you to reply with "negative" if it expresses or implies a negative opinion of any person or group, even if it also says something positive about someone else. Otherwise, you should reply "neutral".
+
+For example
+Tweet: "People are arguing about the origins of an illness they pretend no longer exists.
+You: negative
+
+Tweet: "Thank you @Gargron for your superhuman commitment to the fediverse and all it stands for. Mastodon goes beyond the realm of software and into the realm of movement. I'm so excited to be part of it."
+You: neutral
+
+Tweet: Jay Leno is an awesome host, much better than John Oliver, who is super boring.
+You: negative

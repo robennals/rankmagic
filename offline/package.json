@@ -2,6 +2,7 @@
   "dependencies": {
     "html-entities": "^2.3.3",
     "lodash": "^4.17.21",
-    "node-fetch": "2"
+    "node-fetch": "2",
+    "openai": "^3.2.1"
   }
 }

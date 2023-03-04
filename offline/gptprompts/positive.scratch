@@ -1,0 +1,54 @@
+I'm going to show you a tweet and I want you to tell me whether it expresses positive or negative sentiment about a person or group. I want you to reply with "positive" if the tweet only says positive things about people, "negative" if it only says (or implies) anything negative about any person or group of people, and "neutral" if the post either doesn't mention people, or doesn't imply any judgement of those people.
+
+For example
+Tweet: "People are arguing about the origins of an illness they pretend no longer exists.
+You: negative
+
+Tweet: "Thank you @Gargron for your superhuman commitment to the fediverse and all it stands for. Mastodon goes beyond the realm of software and into the realm of movement. I'm so excited to be part of it."
+You: positive
+
+
+
+I'm going to show you a tweet. I want you to reply with "negative" if it expresses or implies a negative opinion of any person or group, even if it also says something positive about someone else. Otherwise, you should reply "neutral".
+
+For example
+Tweet: "People are arguing about the origins of an illness they pretend no longer exists.
+You: negative
+
+Tweet: "Thank you @Gargron for your superhuman commitment to the fediverse and all it stands for. Mastodon goes beyond the realm of software and into the realm of movement. I'm so excited to be part of it."
+You: neutral
+
+Tweet: Jay Leno is an awesome host, much better than John Oliver, who is super boring.
+You: negative
+
+
+I want you to tell me whether a tweet expresses or implies a negative opinion about any person or group mentioned in the tweet. If a tweet mentions multiple people or groups then negative sentiment about any of them is sufficient to make the tweet negative, even if the tweet expresses positive sentiment about other people or groups.
+
+For example
+Tweet: "People are arguing about the origins of an illness they pretend no longer exists.
+You: yes
+
+Tweet: "Thank you @Gargron for your superhuman commitment to the fediverse and all it stands for. Mastodon goes beyond the realm of software and into the realm of movement. I'm so excited to be part of it."
+You: no
+
+Tweet: Jay Leno is an awesome host, much better than John Oliver, who is super boring.
+You: yes
+
+
+
+
+I want you to tell me whether a Tweet expresses or implies negative sentiment about any person or group.
+You should consider the tweet to be negative even if it also expresses positive sentiment about other people on groups.
+
+For example
+Tweet: "People are arguing about the origins of an illness they pretend no longer exists.
+Negative: yes
+
+Tweet: On March 7th and 8th Apple are hosting free, in-person events at their shiny new developer center in Cupertino.
+Negative: no
+
+Tweet: Jay Leno is an awesome host, much better than John Oliver, who is super boring.
+Negative: yes
+
+Tweet: Just hangin around imagining how it’d be if all the people who live their lives according to a 2,000 year old text decided to start adhering to stuff we as beings have come to understand as scientific truth in say like the last fifty or so years 🤷🏻‍♀️
+Negative:
