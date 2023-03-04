@@ -100,7 +100,7 @@ async function scoreTootsAsync({toots, maxCount, feature}) {
     }
 }
 
-scoreTootsAsync({toots: scoredToots, maxCount: 100, feature: 'positive'});
+scoreTootsAsync({toots: scoredToots, maxCount: 1000, feature: 'positive'});
 
 // testTootScoreAsync();
 

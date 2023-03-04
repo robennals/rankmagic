@@ -1,0 +1,12 @@
+I'm going to show you a sequence of tweets. For each one, I want you to tell me whether it mentions or alludes to a "political topic". A topic is considered to be political if it is one that US Republicans and Democrats have very different views on, such as race, gender, or vaccine mandates.
+
+For example:
+Tweet: I watched the youtube clip where Scott Adams did his racist star turn, and another where he "explained" himself. More like a career move than an outburst. Planned cancelling. 
+You: Political topics: Race, Cancel Culture
+
+Tweet: i have a new post out! this is my first piece about video games in forever and it covers a huge variety of topics. it's called "The California Problem" 
+You: No political topics
+
+Tweet: I don’t expect SCOTUS to make a good decision here. I also don’t want to live in an “I got mine, you get yours” society. I won’t benefit from student debt forgiveness directly but I 100% support it.
+You: Political Topics: Student Debt Forgiveness, Supreme Court
+
