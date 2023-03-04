@@ -5,10 +5,12 @@ const divisors = {
     likes: 10,
     reblogs: 10,
     replies: 10,
-    followers: 100000
+    followers: 100000,
+    disrespectful: 1,
+    political: 1
 }
 
-const features = ['likes', 'replies', 'reblogs', 'followers']
+const features = ['likes', 'replies', 'reblogs', 'followers', 'political', 'disrespectful']
 
 function scoreTootFeature({toot, feature}) {
     const normalized = toot[feature]/divisors[feature];
@@ -35,8 +37,8 @@ function scoreAllToots({toots, weights}) {
     return scores;
 }
 
-export function rankToots({toots, likes, reblogs, replies, followers}) {    
-    const weights = {likes, reblogs, replies, followers};
+export function rankToots({toots, likes, reblogs, replies, followers, political, disrespectful}) {    
+    const weights = {likes, reblogs, replies, followers, political, disrespectful};
     const scores = scoreAllToots({toots, weights});
     console.log('weights', weights);
     console.log('scores', scores);

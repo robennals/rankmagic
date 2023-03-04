@@ -22,16 +22,20 @@ export default function App() {
   const [reblogs, setReblogs] = useState(0);
   const [replies, setReplies] = useState(0);
   const [followers, setFollowers] = useState(0);
+  const [disrespectful, setDisrespectful] = useState(0);
+  const [political, setPolitical] = useState(0);
+  const [showCount, setShowCount] = useState(20);
 
 
   console.log('scoredToots', scoredToots);
 
-  const rankedToots = rankToots({toots: scoredToots, likes, reblogs, replies, followers});
+  const rankedToots = rankToots({toots: scoredToots, likes, reblogs, replies, followers, political, disrespectful});
 
   console.log('rankedToots', rankedToots);
 
 
-  const topToots = rankedToots.slice(0, 20);
+  const topToots = rankedToots.slice(0, showCount);
+  // const topToots = rankedToots;
 
   return (
     <View style={styles.container}>
@@ -46,10 +50,14 @@ export default function App() {
         </TouchableOpacity>
         {expanded ? 
           <View style={{alignItems: 'flex-end'}}>
+            <Text style={{alignSelf: 'center', fontWeight: 'bold', fontSize: 13, marginTop: 8, marginBottom: 2}}>Engagement</Text>
             <RankingSlider title='Like' value={likes} onChange={setLikes} />
             <RankingSlider title='Reshare' value={reblogs} onChange={setReblogs} />
             <RankingSlider title='Reply' value={replies} onChange={setReplies} />
             <RankingSlider title='Follow' value={followers} onChange={setFollowers} />
+            <Text style={{alignSelf: 'center', fontWeight: 'bold', fontSize: 13, marginTop: 8, marginBottom: 2}}>Content</Text>
+            <RankingSlider title='Political' value={political} onChange={setPolitical} />
+            <RankingSlider title='Disrespectful' value={disrespectful} onChange={setDisrespectful} />
           </View>
         : null}
       </View> 
@@ -59,6 +67,7 @@ export default function App() {
         {topToots.map(toot => 
           <Toot key={toot.id} toot={toot} />
         )}
+        <Button title='Show More Toots' onPress={() => setShowCount(showCount + 200)} />
       </ScrollView>
     </View>
   );
@@ -88,8 +97,8 @@ function Toot({toot}){
           {/* <Text style={{color: '#999'}}>({toot.account.followers_count})</Text> */}
         </View>
         <View style={{color: '#222', marginVertical: 8, flexShrink: 1, overflow: 'hidden'}}>
-          {textLines.map(line => 
-            <LinkText text={line} style={{marginVertical: 2, lineHeight: 17}} />
+          {textLines.map((line, idx) => 
+            <LinkText key={idx} text={line} style={{marginVertical: 2, lineHeight: 17}} />
             // <Text key={line} style={{marginVertical: 2, lineHeight: 17}}>{line}</Text>
           )}
         </View>

@@ -43,7 +43,10 @@ function stripHtml(html) {
     return text;
 }
 
-function createScoredToot(toot) {
+function createScoredToot(toot, {positive, political}) {
+    console.log('political', political[toot.id], political[toot.id] != 'No political topics');
+    console.log('negative', positive[toot.id], positive[toot.id] == 'negative');
+
     return {
         id: toot.id,
         text: stripHtml(toot.content),
@@ -58,15 +61,37 @@ function createScoredToot(toot) {
         replies: toot.replies_count,
         reblogs: toot.reblogs_count,
         likes: toot.favourites_count,
+        disrespectful: positive[toot.id] == 'negative' ? 1 : 0,
+        political: political[toot.id] != 'No political topics' ? 1 : 0,
         date: new Date(toot.created_at).valueOf()
     }
 }
 
+
+function parseGptFeature(featureText) {
+    var feature = {};
+    featureText.split('\n').forEach(line => {
+        if (line.trim()) {
+            const [key, result] = line.trim().split(':');
+            feature[key] = result;
+        }        
+    })
+    return feature;
+}
+
+function loadGptFeatures() {
+    const positive = parseGptFeature(FS.readFileSync('gptresults/positive.feature').toString())
+    const political = parseGptFeature(FS.readFileSync('gptresults/political.feature').toString());
+    return {positive, political}
+}
+
+
 function scoreToots() {
     const allToots = getAllToots();
+    const gptFeatures = loadGptFeatures();
     const filtered = allToots.filter(toot => shouldKeepToot(toot));
     const notDups = filterDups(filtered);
-    const scoredToots = notDups.map(toot => createScoredToot(toot));
+    const scoredToots = notDups.map(toot => createScoredToot(toot, gptFeatures));
     console.log('toots left after filtering', notDups.length);
     const jsonString = JSON.stringify(scoredToots, null, 2);
     const javascriptContent = 'exports.scoredToots = ' + jsonString;
